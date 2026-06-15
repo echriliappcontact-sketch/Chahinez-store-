@@ -1,0 +1,571 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chahinez Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{--bg:#0a0a1a;--bg2:#12122a;--glass:rgba(255,255,255,.06);--gb:rgba(255,255,255,.1);--t1:#f0f0f5;--t2:#a0a0c0;--gold:#f5c542;--purple:#8b5cf6;--green:#22c55e;--pink:#ec4899;--orange:#f97316;--gg:linear-gradient(135deg,#f5c542,#f59e0b);--gp:linear-gradient(135deg,#8b5cf6,#3b82f6);--r:16px;--rs:10px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:linear-gradient(135deg,#1a1a3e,#0d0d2b,#1a0a2e);color:var(--t1);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--purple);border-radius:3px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,26,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--gb);padding:0 .6rem;display:flex;align-items:center;justify-content:space-between;height:52px}
+.nav-logo{display:flex;align-items:center;gap:.3rem;flex-shrink:0}
+.nav-logo img{height:36px;border-radius:6px}
+.nav-logo span{font-size:.85rem;font-weight:800;background:var(--gg);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-center{display:flex;gap:.2rem;flex:1;justify-content:center}
+.nav-center button{background:0;border:none;color:var(--t2);font-family:inherit;font-size:.72rem;padding:.3rem .5rem;cursor:pointer;border-radius:var(--rs);transition:.25s;white-space:nowrap}
+.nav-center button:hover,.nav-center button.active{color:var(--t1);background:var(--glass)}
+.nav-right{display:flex;align-items:center;gap:.3rem;flex-shrink:0}
+.lang-btn,.cart-btn,.auth-btn{background:var(--glass);border:1px solid var(--gb);color:var(--t1);padding:.28rem .5rem;border-radius:var(--rs);cursor:pointer;font-family:inherit;font-size:.78rem;position:relative;transition:.25s}
+.lang-btn:hover,.cart-btn:hover,.auth-btn:hover{background:rgba(139,92,246,.2)}
+.lang-select{position:relative}
+.lang-dropdown{position:absolute;top:110%;right:0;background:var(--bg2);border:1px solid var(--gb);border-radius:var(--rs);min-width:120px;display:none;z-index:100;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.lang-dropdown.show{display:block}
+.lang-option{padding:.4rem .6rem;cursor:pointer;font-size:.78rem;color:var(--t2);transition:.2s}
+.lang-option:hover{background:var(--glass);color:var(--t1)}
+.cart-count{position:absolute;top:-5px;left:-5px;background:var(--gg);color:#000;font-size:.5rem;font-weight:700;width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.mobile-menu{display:none;background:0;border:none;color:var(--t1);font-size:1.1rem;cursor:pointer}
+.hero{margin-top:52px;padding:2rem .6rem 1.2rem;text-align:center;background:linear-gradient(180deg,rgba(139,92,246,.1),transparent)}
+.hero h1{font-size:1.5rem;font-weight:900;margin-bottom:.3rem}
+.hero h1 span{background:var(--gg);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:.85rem;color:var(--t2);max-width:480px;margin:0 auto}
+.hero-search{margin-top:1rem;max-width:400px;margin-inline:auto;position:relative}
+.hero-search input{width:100%;padding:.6rem .8rem;padding-right:2.2rem;background:var(--glass);border:1px solid var(--gb);border-radius:50px;color:var(--t1);font-family:inherit;font-size:.82rem;outline:none;transition:.3s}
+[dir=ltr] .hero-search input{padding-right:.8rem;padding-left:2.2rem}
+[dir=ltr] .hero-search i{left:.8rem;right:auto}
+.hero-search input:focus{border-color:var(--purple)}
+.hero-search i{position:absolute;right:.8rem;top:50%;transform:translateY(-50%);color:var(--t2);font-size:.8rem}
+.store-tabs{display:flex;justify-content:center;gap:.3rem;padding:.6rem;flex-wrap:wrap}
+.store-tab{background:var(--glass);border:1px solid var(--gb);color:var(--t2);padding:.4rem .7rem;border-radius:var(--r);cursor:pointer;font-family:inherit;font-size:.75rem;font-weight:500;transition:.25s;display:flex;align-items:center;gap:.25rem;white-space:nowrap}
+.store-tab:hover{color:var(--t1)}
+.store-tab.active{background:linear-gradient(135deg,rgba(139,92,246,.25),rgba(59,130,246,.15));border-color:var(--purple);color:var(--t1)}
+.sub-tabs{display:flex;justify-content:center;gap:.3rem;padding:0 .6rem .5rem;flex-wrap:wrap}
+.sub-tab{background:0;border:1px solid var(--gb);color:var(--t2);padding:.25rem .5rem;border-radius:50px;cursor:pointer;font-family:inherit;font-size:.68rem;transition:.25s}
+.sub-tab:hover{border-color:var(--gold);color:var(--gold)}
+.sub-tab.active{background:var(--gg);color:#000;border-color:transparent;font-weight:600}
+.products-section{padding:.3rem .6rem 2rem;max-width:1400px;margin:0 auto}
+.section-title{font-size:.9rem;font-weight:700;margin-bottom:.6rem;display:flex;align-items:center;gap:.3rem}
+.section-title i{color:var(--gold);font-size:.8rem}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.6rem}
+.product-card{background:linear-gradient(135deg,rgba(139,92,246,.06),rgba(59,130,246,.03));border:1px solid var(--gb);border-radius:var(--r);overflow:hidden;transition:.3s}
+.product-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.25);border-color:rgba(139,92,246,.3)}
+.product-emoji{font-size:3rem;text-align:center;padding:1rem .5rem .5rem;background:rgba(139,92,246,.04)}
+.product-info{padding:.5rem}
+.product-brand{font-size:.55rem;color:var(--gold);font-weight:600;text-transform:uppercase;letter-spacing:.3px;margin-bottom:.1rem}
+.product-name{font-weight:700;font-size:.75rem;line-height:1.3;min-height:1.8em}
+.product-price{font-size:.88rem;font-weight:800;color:var(--gold);margin:.2rem 0 .35rem}
+.add-cart-btn{width:100%;padding:.35rem;border:none;border-radius:var(--rs);background:var(--gp);color:#fff;font-family:inherit;font-size:.68rem;font-weight:600;cursor:pointer;transition:.25s;display:flex;align-items:center;justify-content:center;gap:.2rem;min-height:28px}
+.add-cart-btn:hover{transform:scale(1.02)}
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2000;opacity:0;visibility:hidden;transition:.3s}
+.cart-overlay.open{opacity:1;visibility:visible}
+.cart-drawer{position:fixed;top:0;left:0;width:350px;max-width:95vw;height:100vh;height:100dvh;background:var(--bg2);border-right:1px solid var(--gb);z-index:2001;transform:translateX(-100%);transition:.4s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column}
+.cart-drawer.open{transform:translateX(0)}
+.cart-header{padding:.6rem;border-bottom:1px solid var(--gb);display:flex;justify-content:space-between;align-items:center}
+.cart-header h2{font-size:.9rem}
+.cart-close{background:0;border:none;color:var(--t1);font-size:1.1rem;cursor:pointer}
+.cart-items{flex:1;overflow-y:auto;padding:.4rem}
+.cart-item{display:flex;gap:.4rem;padding:.4rem;background:var(--glass);border-radius:var(--rs);margin-bottom:.3rem;align-items:center}
+.cart-item-emoji{font-size:1.5rem;width:34px;text-align:center;flex-shrink:0}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-name{font-weight:600;font-size:.72rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cart-item-price{color:var(--gold);font-weight:700;font-size:.65rem}
+.cart-item-qty{display:flex;align-items:center;gap:.2rem;margin-top:.1rem}
+.qty-btn{width:20px;height:20px;border-radius:50%;border:1px solid var(--gb);background:var(--glass);color:var(--t1);cursor:pointer;font-size:.75rem;display:flex;align-items:center;justify-content:center}
+.qty-btn:hover{background:var(--purple)}
+.cart-item-remove{background:0;border:none;color:#ef4444;cursor:pointer;font-size:.65rem}
+.cart-empty{text-align:center;padding:2rem;color:var(--t2)}
+.cart-empty i{font-size:1.8rem;margin-bottom:.4rem;display:block}
+.cart-footer{padding:.6rem;border-top:1px solid var(--gb)}
+.cart-summary-row{display:flex;justify-content:space-between;margin-bottom:.15rem;font-size:.75rem}
+.cart-summary-row.total{font-size:.88rem;font-weight:800;color:var(--gold);border-top:1px solid var(--gb);padding-top:.2rem;margin-top:.2rem}
+.cart-summary-row .discount{color:var(--green)}
+.coupon-input{display:flex;gap:.3rem;margin-bottom:.4rem}
+.coupon-input input{flex:1;padding:.35rem;background:var(--glass);border:1px solid var(--gb);border-radius:var(--rs);color:var(--t1);font-family:inherit;outline:none;font-size:.75rem}
+.coupon-input button{padding:.35rem .5rem;background:var(--gg);border:none;border-radius:var(--rs);color:#000;font-family:inherit;font-weight:600;cursor:pointer;font-size:.72rem}
+.checkout-btn{width:100%;padding:.55rem;border:none;border-radius:var(--rs);background:linear-gradient(135deg,var(--green),#16a34a);color:#fff;font-family:inherit;font-size:.8rem;font-weight:700;cursor:pointer;transition:.25s}
+.checkout-btn:hover{transform:scale(1.02)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:3000;display:flex;align-items:flex-start;justify-content:center;opacity:0;visibility:hidden;transition:.3s;padding:.6rem;overflow-y:auto;padding-top:1.5rem}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal{background:var(--bg2);border:1px solid var(--gb);border-radius:var(--r);padding:1rem;width:420px;max-width:100%;position:relative;max-height:90vh;overflow-y:auto}
+.modal-close{position:absolute;top:.4rem;left:.4rem;background:0;border:none;color:var(--t1);font-size:1rem;cursor:pointer;z-index:2}
+.modal h2{text-align:center;margin-bottom:.6rem;font-size:1rem}
+.logo-accent{background:var(--gg);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.form-group{margin-bottom:.4rem}
+.form-group label{display:block;margin-bottom:.1rem;font-size:.72rem;color:var(--t2)}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:.4rem .5rem;background:var(--glass);border:1px solid var(--gb);border-radius:var(--rs);color:var(--t1);font-family:inherit;font-size:.78rem;outline:none;transition:.3s}
+.form-group input:focus,.form-group select:focus{border-color:var(--purple)}
+.form-group select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a0a0c0' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left .5rem center}
+[dir=ltr] .form-group select{background-position:right .5rem center}
+.form-group select option{background:var(--bg2);color:var(--t1)}
+.form-group textarea{resize:vertical;min-height:50px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.4rem}
+.auth-submit{width:100%;padding:.5rem;border:none;border-radius:var(--rs);background:var(--gp);color:#fff;font-family:inherit;font-size:.82rem;font-weight:600;cursor:pointer;margin-top:.1rem;transition:.25s;display:flex;align-items:center;justify-content:center;gap:.3rem}
+.auth-submit:hover{transform:scale(1.01)}
+.google-btn{width:100%;padding:.5rem;border:1px solid var(--gb);border-radius:var(--rs);background:var(--glass);color:var(--t1);font-family:inherit;font-size:.82rem;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.3rem;margin-bottom:.4rem}
+.divider{text-align:center;color:var(--t2);margin:.4rem 0;font-size:.7rem}
+.auth-toggle{text-align:center;margin-top:.4rem;font-size:.72rem;color:var(--t2)}
+.auth-toggle a{color:var(--purple);cursor:pointer}
+.auth-error{color:#ef4444;font-size:.68rem;text-align:center;margin-top:.1rem}
+.order-success{text-align:center;padding:.8rem}
+.order-success i{font-size:2.2rem;color:var(--green);margin-bottom:.4rem}
+.order-success h2{margin-bottom:.2rem;font-size:.95rem}
+.order-success p{color:var(--t2);margin-bottom:.5rem;font-size:.78rem}
+.cf-title{text-align:center;font-size:.95rem;font-weight:700;margin-bottom:.6rem;display:flex;align-items:center;justify-content:center;gap:.4rem}
+.cf-title i{color:var(--gold)}
+.os-box{background:var(--glass);border:1px solid var(--gb);border-radius:var(--rs);padding:.5rem;margin-bottom:.6rem;font-size:.72rem}
+.os-row{display:flex;justify-content:space-between;padding:.1rem 0}
+.os-total{color:var(--gold);font-weight:700;font-size:.82rem;border-top:1px solid var(--gb);padding-top:.2rem;margin-top:.2rem}
+.fs{display:flex;align-items:center;gap:.3rem;margin-bottom:.35rem;font-size:.78rem;font-weight:700;color:var(--gold)}
+.fs span:first-child{width:20px;height:20px;background:var(--gg);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700}
+.wilaya-badge{display:inline-flex;align-items:center;gap:.3rem;background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(59,130,246,.1));border:1px solid var(--gb);border-radius:var(--rs);padding:.3rem .6rem;font-size:.75rem;color:var(--t1);margin-bottom:.4rem}
+.wilaya-badge i{color:var(--gold)}
+.ai-chef-btn{position:fixed;bottom:.8rem;left:.8rem;z-index:1500;background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;border:none;padding:.4rem .7rem;border-radius:50px;font-family:inherit;font-size:.72rem;font-weight:700;cursor:pointer;box-shadow:0 3px 15px rgba(249,115,22,.4);display:flex;align-items:center;gap:.25rem}
+.ai-chef-btn:hover{transform:scale(1.05)}
+.ai-chef-panel{position:fixed;bottom:3.5rem;left:.4rem;right:.4rem;z-index:1500;max-width:380px;background:var(--bg2);border:1px solid var(--gb);border-radius:var(--r);padding:.7rem;display:none;box-shadow:0 8px 32px rgba(0,0,0,.4);max-height:70vh;overflow-y:auto}
+.ai-chef-panel.open{display:block;animation:slideUp .3s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.ai-chef-panel h3{margin-bottom:.4rem;font-size:.85rem}
+.camera-area{border:2px dashed var(--gb);border-radius:var(--rs);padding:.8rem;text-align:center;cursor:pointer;margin-bottom:.4rem}
+.camera-area:hover{border-color:var(--purple)}
+.camera-area i{font-size:1.2rem;color:var(--purple);display:block;margin-bottom:.2rem}
+.ai-result{background:var(--glass);border-radius:var(--rs);padding:.6rem;max-height:300px;overflow-y:auto;display:none;font-size:.78rem;line-height:1.8}
+.ai-result h4{color:var(--gold);margin-bottom:.3rem}
+.toast{position:fixed;top:60px;right:.7rem;z-index:5000;padding:.45rem .7rem;border-radius:var(--rs);font-weight:600;transform:translateX(120%);transition:.4s;backdrop-filter:blur(10px);font-size:.78rem;background:linear-gradient(135deg,rgba(34,197,94,.9),rgba(22,163,74,.9));color:#fff}
+.toast.show{transform:translateX(0)}
+.toast.error{background:linear-gradient(135deg,rgba(239,68,68,.9),rgba(220,38,38,.9))}
+footer{background:var(--bg2);border-top:1px solid var(--gb);padding:1.2rem .6rem .6rem;margin-top:1.5rem}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.8rem;max-width:1200px;margin:0 auto}
+.footer-col h3{color:var(--gold);margin-bottom:.3rem;font-size:.8rem}
+.footer-col p,.footer-col a{color:var(--t2);font-size:.72rem;line-height:1.5;display:block}
+.footer-col a:hover{color:var(--purple)}
+.footer-bottom{text-align:center;margin-top:.8rem;padding-top:.6rem;border-top:1px solid var(--gb);color:var(--t2);font-size:.65rem}
+.mobile-nav{position:fixed;top:52px;left:0;right:0;background:var(--bg2);border-bottom:1px solid var(--gb);padding:.4rem;display:none;z-index:999}
+.mobile-nav.open{display:block}
+.mobile-nav button{display:block;width:100%;text-align:end;background:0;border:none;color:var(--t2);padding:.4rem .5rem;font-family:inherit;font-size:.78rem;cursor:pointer;border-radius:var(--rs)}
+.mobile-nav button:hover{background:var(--glass);color:var(--t1)}
+@media(max-width:900px){.nav-center{display:none}.mobile-menu{display:block}}
+@media(min-width:901px){.mobile-nav{display:none!important}}
+@media(max-width:600px){.hero h1{font-size:1.3rem}.hero p{font-size:.78rem}.hero{padding:1.5rem .5rem 1rem}.products-grid{grid-template-columns:repeat(2,1fr);gap:.4rem}.product-emoji{font-size:2.5rem;padding:.7rem .3rem .4rem}.product-info{padding:.35rem}.product-price{font-size:.8rem}.product-name{font-size:.7rem}.store-tab{padding:.3rem .5rem;font-size:.68rem}.sub-tab{padding:.2rem .4rem;font-size:.62rem}.section-title{font-size:.8rem}.add-cart-btn{font-size:.62rem;padding:.3rem;min-height:26px}.cart-drawer{max-width:98vw}.footer-grid{grid-template-columns:1fr 1fr}.ai-chef-panel{left:.3rem;right:.3rem}.form-row{grid-template-columns:1fr}}
+@media(max-width:380px){.navbar{height:48px}.hero{margin-top:48px}.nav-logo span{font-size:.75rem}.nav-logo img{height:30px}}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-logo"><img src="https://i.imgur.com/KI0gDwG.png" alt="Logo" onerror="this.style.display='none'"><span>Chahinez Store</span></div>
+  <div class="nav-center" id="navCenter"></div>
+  <div class="nav-right">
+    <div class="lang-select">
+      <button class="lang-btn" onclick="toggleLang()"><i class="fas fa-globe"></i> <span id="langLabel">العربية</span></button>
+      <div class="lang-dropdown" id="langDrop">
+        <div class="lang-option" onclick="setLang('ar')">🇩🇿 العربية</div>
+        <div class="lang-option" onclick="setLang('fr')">🇫🇷 Français</div>
+        <div class="lang-option" onclick="setLang('en')">🇬🇧 English</div>
+      </div>
+    </div>
+    <button class="cart-btn" onclick="toggleCart()"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cartCount">0</span></button>
+    <div id="authArea"><button class="auth-btn" onclick="openAuthModal()"><i class="fas fa-user"></i></button></div>
+    <button class="mobile-menu" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav"></div>
+
+<section class="hero">
+  <h1 id="heroTitle"></h1>
+  <p id="heroSub"></p>
+  <div class="hero-search"><i class="fas fa-search"></i><input type="text" id="searchInput" oninput="renderProducts()"></div>
+</section>
+<div class="store-tabs" id="storeTabs"></div>
+<div class="sub-tabs" id="subTabs"></div>
+<div class="products-section" id="productsContainer"></div>
+
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header"><h2 id="cartTitle"></h2><button class="cart-close" onclick="toggleCart()"><i class="fas fa-times"></i></button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter">
+    <div class="coupon-input"><input type="text" id="couponInput" placeholder="كوبون..."><button onclick="applyCoupon()" id="couponBtn"></button></div>
+    <div id="cartSummary"></div>
+    <button class="checkout-btn" onclick="openCheckout()" id="checkoutBtn"></button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('checkoutModal')"><i class="fas fa-times"></i></button>
+    <div class="cf-title"><i class="fas fa-clipboard-list"></i> <span id="cfTitle"></span></div>
+    <div id="osBox"></div>
+    <div class="fs"><span>1</span><span id="fs1l"></span></div>
+    <div class="form-row">
+      <div class="form-group"><label id="fnL"></label><input type="text" id="cFN"></div>
+      <div class="form-group"><label id="lnL"></label><input type="text" id="cLN"></div>
+    </div>
+    <div class="form-group"><label id="phL"></label><input type="tel" id="cPH" placeholder="05XX XX XX XX"></div>
+    <div class="fs"><span>2</span><span id="fs2l"></span></div>
+    <div class="wilaya-badge"><i class="fas fa-map-marker-alt"></i> <span id="wilayaName">الطارف</span></div>
+    <div class="form-group"><label id="coL"></label><select id="cCO"><option value="">--</option></select></div>
+    <div class="form-group"><label id="adL"></label><textarea id="cAD" placeholder="..."></textarea></div>
+    <div class="auth-error" id="cErr"></div>
+    <button class="auth-submit" onclick="submitOrder()" id="sBtn"></button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="authModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('authModal')"><i class="fas fa-times"></i></button>
+    <h2 id="authTitle"></h2>
+    <button class="google-btn" onclick="googleSignIn()"><i class="fab fa-google"></i> <span id="gBtn"></span></button>
+    <div class="divider" id="aDiv"></div>
+    <div class="form-group"><label id="eL"></label><input type="email" id="aE"></div>
+    <div class="form-group"><label id="pL"></label><input type="password" id="aP"></div>
+    <div class="form-group" id="nG" style="display:none"><label id="nL"></label><input type="text" id="aN"></div>
+    <div class="auth-error" id="aErr"></div>
+    <button class="auth-submit" id="aSb" onclick="emailAuth()"></button>
+    <div class="auth-toggle"><span id="aTg"></span> <a id="aTl" onclick="toggleAuthMode()"></a></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="orderModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('orderModal')"><i class="fas fa-times"></i></button>
+    <div class="order-success"><i class="fas fa-check-circle"></i><h2 id="oT"></h2><p id="oM"></p><p id="oN" style="font-size:.8rem;color:var(--gold);font-weight:700;margin-bottom:.5rem"></p><button class="auth-submit" onclick="closeModal('orderModal')" id="oB"></button></div>
+  </div>
+</div>
+
+<button class="ai-chef-btn" onclick="toggleAiChef()"><i class="fas fa-robot"></i> AI Chef</button>
+<div class="ai-chef-panel" id="aiPanel">
+  <h3><i class="fas fa-utensils"></i> <span id="aiT">AI Chef</span></h3>
+  <div id="aiHowTo" style="background:rgba(139,92,246,.08);border:1px solid var(--gb);border-radius:var(--rs);padding:.5rem;margin-bottom:.5rem;font-size:.7rem;color:var(--t2);line-height:1.6"></div>
+  <div style="display:flex;gap:.3rem;margin-bottom:.5rem">
+    <button class="sub-tab active" id="tabCam" onclick="setAiMode('cam')"><i class="fas fa-camera"></i> <span id="tabCamT"></span></button>
+    <button class="sub-tab" id="tabTxt" onclick="setAiMode('txt')"><i class="fas fa-keyboard"></i> <span id="tabTxtT"></span></button>
+  </div>
+  <div id="camMode">
+    <div class="camera-area" id="camArea" onclick="startCam()"><i class="fas fa-camera"></i><p id="camTxt"></p></div>
+    <video id="camVid" autoplay playsinline style="display:none;width:100%;border-radius:var(--rs)"></video>
+    <div id="camCtrl" style="display:none;text-align:center;margin-bottom:.4rem;display:none">
+      <button class="auth-submit" onclick="snapPhoto()" style="width:auto;padding:.3rem .7rem;display:inline-flex"><i class="fas fa-camera"></i> <span id="snapT"></span></button>
+      <button class="google-btn" onclick="stopCam()" style="width:auto;padding:.3rem .7rem;display:inline-flex;margin:0"><i class="fas fa-times"></i> <span id="cancelT"></span></button>
+    </div>
+    <canvas id="pCanvas" style="display:none"></canvas>
+    <img id="capImg" alt="" style="display:none;border-radius:var(--rs);margin-bottom:.4rem;width:100%">
+  </div>
+  <div id="txtMode" style="display:none">
+    <textarea id="aiInput" style="width:100%;padding:.4rem;background:var(--glass);border:1px solid var(--gb);border-radius:var(--rs);color:var(--t1);font-family:inherit;font-size:.78rem;outline:none;min-height:80px;resize:vertical;margin-bottom:.4rem"></textarea>
+  </div>
+  <button class="auth-submit" onclick="getRecipe()"><i class="fas fa-magic"></i> <span id="recipeT"></span></button>
+  <div class="ai-result" id="aiRes"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col"><h3>Chahinez Store</h3><p id="fDesc"></p></div>
+    <div class="footer-col"><h3 id="fLinks"></h3><a href="#" id="fl1"></a><a href="#" id="fl2"></a><a href="#" id="fl3"></a></div>
+    <div class="footer-col"><h3 id="fServ"></h3><a href="#" id="fs1"></a><a href="#" id="fs2"></a><a href="#" id="fs3"></a><a href="#" id="fs4"></a></div>
+    <div class="footer-col"><h3 id="fCont"></h3><p><i class="fas fa-phone"></i> +213 XXX XXX XXX</p><p><i class="fas fa-envelope"></i> contact@chahinezstore.dz</p><p><i class="fas fa-map-marker-alt"></i> <span id="fLoc"></span></p></div>
+  </div>
+  <div class="footer-bottom"><p id="fCopy"></p></div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+try{
+firebase.initializeApp({apiKey:"AIzaSyD7VxYDtxNoRArhU5qhPaodLhjxdl_gjHE",authDomain:"chahinez-tlili.firebaseapp.com",projectId:"chahinez-tlili",storageBucket:"chahinez-tlili.firebasestorage.app",messagingSenderId:"118374053167",appId:"1:118374053167:web:d986c6ebf187c59c981dda"});
+}catch(e){console.warn('Firebase init:',e.message)}
+var fbAuth=firebase.auth();
+var fbDB=firebase.firestore();
+
+/* ═══ COMMUNES ═══ */
+var COMMUNES=["الطارف","بوحجار","بن مهيدي","بوقوس","القالة","عين العسل","العيون","بوثلجة","السوارخ","بريحان","بحيرة الطيور","الشافية","الذرعان","الشيحاني","شبيطة مختار","البسباس","عصفور","الشط","زريزر","الزيتونة","عين الكرمة","وادي الزيتون","حمام بني صالح","رمل السوق"];
+
+/* ═══ TRANSLATIONS ═══ */
+var T={
+ar:{langLabel:'العربية',navGrocery:'🛒 البقالة',navFresh:'🌱 المنتج للمستهلك',navBaby:'👶 حوامل ورضع',heroTitle:'مرحباً بك في <span>Chahinez Store</span>',heroSub:'متجرك الجزائري — منتجات أصلية بأسعار السوق',search:'ابحث عن منتج...',addToCart:'أضف للسلة',cur:'د.ج',cartT:'<i class="fas fa-shopping-cart"></i> سلة التسوق',cartE:'السلة فارغة',couponP:'كوبون...',couponB:'تطبيق',sub:'المجموع الفرعي',disc:'الخصم',total:'المجموع',checkout:'تأكيد الطلب',authT:'أهلاً بك في <span class="logo-accent">Chahinez Store</span>',gBtn:'Google',or:'أو',email:'البريد',pass:'كلمة المرور',name:'الاسم',login:'دخول',signup:'إنشاء حساب',noAcc:'ليس لديك حساب؟',hasAcc:'لديك حساب؟',createAcc:'إنشاء حساب',okTitle:'تم الطلب بنجاح!',okMsg:'شكراً لك! سيتم التواصل معك قريباً لتأكيد الطلب.',okBtn:'متابعة التسوق',brand:'ماركة',cfTitle:'معلومات الطلب',fnL:'الاسم',lnL:'اللقب',phL:'رقم الهاتف',coL:'البلدية',adL:'العنوان',fs1l:'المعلومات الشخصية',fs2l:'عنوان التوصيل',sBtn:'تأكيد الطلب',selC:'اختر البلدية',fillAll:'يرجى ملء جميع الحقول',sending:'جاري الإرسال...',okNum:'رقم الطلب',items:'منتج',added:'تمت الإضافة',couponOk:'تم التطبيق',couponBad:'غير صالح',subAll:'الكل',subDrinks:'مشروبات',subDairy:'ألبان',subStaples:'مواد أساسية',subOils:'زيوت ودهون',subCondiments:'توابل وصلصات',subSweets:'حلويات',subFruits:'فواكه',subVegetables:'خضروات',subHerbs:'أعشاب',subInfant:'رضع',subPregnant:'حوامل',fDesc:'متجرك الجزائري الشامل.',fLinks:'روابط',fServ:'خدمة',fCont:'تواصل',fl1:'الرئيسية',fl2:'البقالة',fl3:'خضر وفواكه',fs1:'تتبع',fs2:'إرجاع',fs3:'أسئلة',fs4:'اتصل',fLoc:'الطارف، الجزائر',fCopy:'© 2025 Chahinez Store — الدفع عند الاستلام',howTo:'<b>كيف يعمل AI Chef؟</b><br>1️⃣ افتح الكاميرا وصوّر مكوناتك <b>أو</b> اكتبها يدوياً<br>2️⃣ اضغط "اقترح وصفة"<br>3️⃣ احصل على وصفة جزائرية مخصصة<br><br>💡 <i>الكاميرا تعمل على HTTPS فقط. بدونها اكتب المكونات.</i>',camTab:'كاميرا',txtTab:'كتابة',camOpen:'اضغط لفتح الكاميرا',snapBtn:'تصوير',cancelBtn:'إلغاء',recipeBtn:'اقترح وصفة',inputP:'مثال: طماطم، بصل، لحم، زيت زيتون',noCam:'الكاميرا غير متاحة — استخدم وضع الكتابة',snapFirst:'صوّر المكونات أولاً',typeFirst:'اكتب المكونات أولاً',analyzing:'جاري التحليل...'},
+fr:{langLabel:'Français',navGrocery:'🛒 Épicerie',navFresh:'🌱 Producteur→Conso.',navBaby:'👶 Bébé & Grossesse',heroTitle:'Bienvenue <span>Chahinez Store</span>',heroSub:'Supermarché algérien',search:'Rechercher...',addToCart:'Ajouter',cur:'DA',cartT:'<i class="fas fa-shopping-cart"></i> Panier',cartE:'Vide',couponP:'Code...',couponB:'OK',sub:'Sous-total',disc:'Remise',total:'Total',checkout:'Commander',authT:'Bienvenue',gBtn:'Google',or:'ou',email:'Email',pass:'Mdp',name:'Nom',login:'Connexion',signup:'Inscription',noAcc:'Pas de compte?',hasAcc:'Compte?',createAcc:'Créer',okTitle:'Commandé!',okMsg:'Merci! On vous contactera.',okBtn:'Continuer',brand:'Marque',cfTitle:'Commande',fnL:'Prénom',lnL:'Nom',phL:'Téléphone',coL:'Commune',adL:'Adresse',fs1l:'Informations',fs2l:'Adresse livraison',sBtn:'Confirmer',selC:'Choisir commune',fillAll:'Remplir tous les champs',sending:'Envoi...',okNum:'N° commande',items:'produits',added:'Ajouté',couponOk:'OK',couponBad:'Invalide',subAll:'Tout',subDrinks:'Boissons',subDairy:'Laitier',subStaples:'Épicerie',subOils:'Huiles',subCondiments:'Condiments',subSweets:'Sucré',subFruits:'Fruits',subVegetables:'Légumes',subHerbs:'Herbes',subInfant:'Bébé',subPregnant:'Grossesse',fDesc:'Supermarché algérien.',fLinks:'Liens',fServ:'Service',fCont:'Contact',fl1:'Accueil',fl2:'Épicerie',fl3:'Fruits',fs1:'Suivi',fs2:'Retours',fs3:'FAQ',fs4:'Contact',fLoc:'El Tarf, Algérie',fCopy:'© 2025 Chahinez Store',howTo:'<b>Comment ça marche?</b><br>1️⃣ Ouvrez caméra et photo <b>ou</b> tapez ingrédients<br>2️⃣ Cliquez "Suggérer recette"<br>3️⃣ Recevez recette algérienne<br><br>💡 <i>Caméra sur HTTPS seulement. Sinon tapez.</i>',camTab:'Caméra',txtTab:'Écrire',camOpen:'Cliquer pour ouvrir caméra',snapBtn:'Capturer',cancelBtn:'Annuler',recipeBtn:'Suggérer recette',inputP:'Ex: tomate, oignon, viande, huile olive',noCam:'Caméra indisponible — écrivez',snapFirst:'Photoz d\'abord',typeFirst:'Écrivez ingrédients',analyzing:'Analyse...'},
+en:{langLabel:'English',navGrocery:'🛒 Grocery',navFresh:'🌱 Farm→Consumer',navBaby:'👶 Baby & Pregnancy',heroTitle:'Welcome <span>Chahinez Store</span>',heroSub:'Algerian supermarket',search:'Search...',addToCart:'Add',cur:'DA',cartT:'<i class="fas fa-shopping-cart"></i> Cart',cartE:'Empty',couponP:'Code...',couponB:'Apply',sub:'Subtotal',disc:'Discount',total:'Total',checkout:'Order',authT:'Welcome',gBtn:'Google',or:'or',email:'Email',pass:'Pass',name:'Name',login:'Login',signup:'Sign Up',noAcc:'No account?',hasAcc:'Account?',createAcc:'Create',okTitle:'Ordered!',okMsg:'Thank you! We will contact you.',okBtn:'Continue',brand:'Brand',cfTitle:'Order Info',fnL:'First Name',lnL:'Last Name',phL:'Phone',coL:'Commune',adL:'Address',fs1l:'Personal Info',fs2l:'Delivery Address',sBtn:'Confirm Order',selC:'Select commune',fillAll:'Fill all fields',sending:'Sending...',okNum:'Order #',items:'items',added:'Added',couponOk:'Applied',couponBad:'Invalid',subAll:'All',subDrinks:'Drinks',subDairy:'Dairy',subStaples:'Staples',subOils:'Oils',subCondiments:'Condiments',subSweets:'Sweets',subFruits:'Fruits',subVegetables:'Vegetables',subHerbs:'Herbs',subInfant:'Baby',subPregnant:'Pregnancy',fDesc:'Algerian supermarket.',fLinks:'Links',fServ:'Service',fCont:'Contact',fl1:'Home',fl2:'Grocery',fl3:'Fruits',fs1:'Track',fs2:'Returns',fs3:'FAQ',fs4:'Contact',fLoc:'El Tarf, Algeria',fCopy:'© 2025 Chahinez Store',howTo:'<b>How it works?</b><br>1️⃣ Open camera and photo <b>or</b> type ingredients<br>2️⃣ Click "Suggest Recipe"<br>3️⃣ Get Algerian recipe<br><br>💡 <i>Camera works on HTTPS only. Otherwise type.</i>',camTab:'Camera',txtTab:'Type',camOpen:'Click to open camera',snapBtn:'Capture',cancelBtn:'Cancel',recipeBtn:'Suggest Recipe',inputP:'e.g. tomato, onion, meat, olive oil',noCam:'Camera unavailable — use text',snapFirst:'Take a photo first',typeFirst:'Type ingredients first',analyzing:'Analyzing...'}
+};
+
+/* ═══ PRODUCTS ═══ */
+var PRODUCTS={grocery:[
+{id:'g1',n:{ar:'قهوة نسكافيه 100غ',fr:'Nescafé 100g',en:'Nescafé 100g'},p:450,b:'Nescafe',s:'drinks',e:'☕'},{id:'g2',n:{ar:'قهوة نسكافيه 200غ',fr:'Nescafé 200g',en:'Nescafé 200g'},p:850,b:'Nescafe',s:'drinks',e:'☕'},{id:'g3',n:{ar:'قهوة نسكافيه جولد',fr:'Nescafé Gold',en:'Nescafé Gold'},p:650,b:'Nescafe',s:'drinks',e:'☕'},{id:'g4',n:{ar:'شاي ليبتون 12 كيس',fr:'Lipton 12s',en:'Lipton 12 bags'},p:150,b:'Lipton',s:'drinks',e:'🍵'},{id:'g5',n:{ar:'شاي أخضر 25',fr:'Lipton Vert 25',en:'Lipton Green 25'},p:280,b:'Lipton',s:'drinks',e:'🍵'},{id:'g6',n:{ar:'شاي أسود 25',fr:'Lipton Noir 25',en:'Lipton Black 25'},p:250,b:'Lipton',s:'drinks',e:'🍵'},{id:'g7',n:{ar:'عصير برتقال',fr:'Jus Orange',en:'Orange Juice'},p:150,b:'Rouiba',s:'drinks',e:'🧃'},{id:'g8',n:{ar:'مشروب غازي',fr:'Soda',en:'Soda'},p:80,b:'Coca-Cola',s:'drinks',e:'🥤'},
+{id:'g9',n:{ar:'حليب كانديا 1ل',fr:'Candia 1L',en:'Candia 1L'},p:140,b:'Candia',s:'dairy',e:'🥛'},{id:'g10',n:{ar:'حليب لويـا 125غ',fr:'Loya 125g',en:'Loya 125g'},p:40,b:'Loya',s:'dairy',e:'🥛'},{id:'g11',n:{ar:'حليب لويـا 500غ',fr:'Loya 500g',en:'Loya 500g'},p:120,b:'Loya',s:'dairy',e:'🥛'},{id:'g12',n:{ar:'حليب غلوريا 500غ',fr:'Gloria 500g',en:'Gloria 500g'},p:130,b:'Gloria',s:'dairy',e:'🥛'},{id:'g13',n:{ar:'حليب نيدو',fr:'Nido Entier',en:'Nido Full Cream'},p:600,b:'Nido',s:'dairy',e:'🥛'},{id:'g14',n:{ar:'حليب طويل المدة',fr:'Lait Longue',en:'Long Life Milk'},p:150,b:'Candia',s:'dairy',e:'🥛'},{id:'g15',n:{ar:'لبن رائب',fr:'Yaourt',en:'Yogurt'},p:50,b:'Danone',s:'dairy',e:'🫙'},{id:'g16',n:{ar:'ياغورت فراولة',fr:'Yaourt Fraise',en:'Strawberry Yogurt'},p:60,b:'Danone',s:'dairy',e:'🫙'},{id:'g17',n:{ar:'جبن 16 مثلث',fr:'Vache 16pc',en:'Vache 16pc'},p:380,b:'Vache Qui Rit',s:'dairy',e:'🧀'},{id:'g18',n:{ar:'جبن 24 مثلث',fr:'Vache 24pc',en:'Vache 24pc'},p:550,b:'Vache Qui Rit',s:'dairy',e:'🧀'},{id:'g19',n:{ar:'جبن مثلثات',fr:'Triangles',en:'Cheese Triangles'},p:350,b:'Vache Qui Rit',s:'dairy',e:'🧀'},
+{id:'g20',n:{ar:'سكر سكور 1كغ',fr:'Skor 1kg',en:'Skor 1kg'},p:140,b:'Skor',s:'staples',e:'🍬'},{id:'g21',n:{ar:'سكر سكور 2كغ',fr:'Skor 2kg',en:'Skor 2kg'},p:270,b:'Skor',s:'staples',e:'🍬'},{id:'g22',n:{ar:'سكر سكور 5كغ',fr:'Skor 5kg',en:'Skor 5kg'},p:650,b:'Skor',s:'staples',e:'🍬'},{id:'g23',n:{ar:'سكر بني',fr:'Sucre Brun',en:'Brown Sugar'},p:180,b:'Skor',s:'staples',e:'🍬'},{id:'g24',n:{ar:'سكر ناعم',fr:'Sucre Glace',en:'Powder Sugar'},p:200,b:'Skor',s:'staples',e:'🍬'},{id:'g25',n:{ar:'طحين فرينة',fr:'Farine',en:'Flour'},p:120,b:'Sim',s:'staples',e:'🌾'},{id:'g26',n:{ar:'أرز 1كغ',fr:'Riz 1kg',en:'Rice 1kg'},p:250,b:'Rizana',s:'staples',e:'🍚'},{id:'g27',n:{ar:'كسكس 1كغ',fr:'Couscous 1kg',en:'Couscous 1kg'},p:200,b:'Ferrero',s:'staples',e:'🥣'},{id:'g28',n:{ar:'سباغيتي',fr:'Spaghetti',en:'Spaghetti'},p:100,b:'Tria',s:'staples',e:'🍝'},{id:'g29',n:{ar:'مقرونة بيني',fr:'Penne',en:'Penne'},p:100,b:'Tria',s:'staples',e:'🍝'},{id:'g30',n:{ar:'عدس',fr:'Lentilles',en:'Lentils'},p:350,b:'-',s:'staples',e:'🫘'},{id:'g31',n:{ar:'حمص',fr:'Pois Chiches',en:'Chickpeas'},p:350,b:'-',s:'staples',e:'🫘'},{id:'g32',n:{ar:'طماطم مصبرة',fr:'Tomates 400g',en:'Canned Tomatoes'},p:80,b:'Elio',s:'staples',e:'🍅'},
+{id:'g33',n:{ar:'زيت إليو 1ل',fr:'Elio 1L',en:'Elio 1L'},p:280,b:'Elio',s:'oils',e:'🫒'},{id:'g34',n:{ar:'زيت إليو 2ل',fr:'Elio 2L',en:'Elio 2L'},p:520,b:'Elio',s:'oils',e:'🫒'},{id:'g35',n:{ar:'زيت إليو 5ل',fr:'Elio 5L',en:'Elio 5L'},p:1200,b:'Elio',s:'oils',e:'🫒'},{id:'g36',n:{ar:'زيت فلوريال 1.8ل',fr:'Fleurial 1.8L',en:'Fleurial 1.8L'},p:450,b:'Fleurial',s:'oils',e:'🌻'},{id:'g37',n:{ar:'زيت فلوريال 4ل',fr:'Fleurial 4L',en:'Fleurial 4L'},p:850,b:'Fleurial',s:'oils',e:'🌻'},{id:'g38',n:{ar:'مارغرين 250غ',fr:'Margarine 250g',en:'Margarine 250g'},p:120,b:'Fleurial',s:'oils',e:'🧈'},{id:'g39',n:{ar:'مارغرين 500غ',fr:'Margarine 500g',en:'Margarine 500g'},p:220,b:'Fleurial',s:'oils',e:'🧈'},{id:'g40',n:{ar:'مارغرين ماتينا',fr:'Matina 250g',en:'Matina 250g'},p:110,b:'Matina',s:'oils',e:'🧈'},{id:'g41',n:{ar:'زبدة 500غ',fr:'Beurre 500g',en:'Butter 500g'},p:450,b:'La Parisienne',s:'oils',e:'🧈'},{id:'g42',n:{ar:'سمن المدينة 500غ',fr:'Ghee 500g',en:'Ghee 500g'},p:350,b:'Medina',s:'oils',e:'🫙'},{id:'g43',n:{ar:'سمن المدينة 900غ',fr:'Ghee 900g',en:'Ghee 900g'},p:600,b:'Medina',s:'oils',e:'🫙'},{id:'g44',n:{ar:'زيت زيتون',fr:'Huile Olive',en:'Olive Oil'},p:900,b:'-',s:'oils',e:'🫒'},
+{id:'g45',n:{ar:'مايونيز فلوريال',fr:'Mayo 220g',en:'Mayo 220g'},p:200,b:'Fleurial',s:'condiments',e:'🫙'},{id:'g46',n:{ar:'كاتشاب فوديز',fr:'Ketchup 850g',en:'Ketchup 850g'},p:350,b:"Foody's",s:'condiments',e:'🫙'},{id:'g47',n:{ar:'هريسة فوديز',fr:'Harissa 850g',en:'Harissa 850g'},p:300,b:"Foody's",s:'condiments',e:'🌶️'},
+{id:'g48',n:{ar:'مربى مشمش',fr:'Abricot 295g',en:'Apricot Jam'},p:180,b:'Matina',s:'sweets',e:'🍯'},{id:'g49',n:{ar:'مربى فراولة',fr:'Fraise 295g',en:'Strawberry Jam'},p:180,b:'Matina',s:'sweets',e:'🍓'},{id:'g50',n:{ar:'مربى خوخ',fr:'Pêche 295g',en:'Peach Jam'},p:180,b:'Matina',s:'sweets',e:'🍑'},{id:'g51',n:{ar:'مربى تين',fr:'Figue 295g',en:'Fig Jam'},p:200,b:'Matina',s:'sweets',e:'🍯'},{id:'g52',n:{ar:'شوكولاتة 350غ',fr:'Choco 350g',en:'Choco Spread 350g'},p:500,b:'Matina',s:'sweets',e:'🍫'},{id:'g53',n:{ar:'شوكولاتة 700غ',fr:'Choco 700g',en:'Choco Spread 700g'},p:900,b:'Matina',s:'sweets',e:'🍫'},{id:'g54',n:{ar:'بسكويت شوكولاتة',fr:'Biscuits Choco',en:'Choco Cookies'},p:150,b:'Bimo',s:'sweets',e:'🍪'},{id:'g55',n:{ar:'شوكولاتة لوح',fr:'Tablette Choco',en:'Choco Bar'},p:350,b:'Milka',s:'sweets',e:'🍫'},{id:'g56',n:{ar:'عسل طبيعي',fr:'Miel',en:'Honey'},p:500,b:'-',s:'sweets',e:'🍯'},{id:'g57',n:{ar:'زبدة فول سوداني',fr:'Beurre Cacahuète',en:'Peanut Butter'},p:450,b:'Skippy',s:'sweets',e:'🥜'}
+],fresh:[
+{id:'f1',n:{ar:'تفاح أحمر',fr:'Pomme Rouge',en:'Red Apple'},p:300,b:'-',s:'fruits',e:'🍎'},{id:'f2',n:{ar:'تفاح أخضر',fr:'Pomme Verte',en:'Green Apple'},p:350,b:'-',s:'fruits',e:'🍏'},{id:'f3',n:{ar:'موز',fr:'Bananes',en:'Bananas'},p:300,b:'-',s:'fruits',e:'🍌'},{id:'f4',n:{ar:'برتقال',fr:'Oranges',en:'Oranges'},p:150,b:'-',s:'fruits',e:'🍊'},{id:'f5',n:{ar:'ليمون',fr:'Citrons',en:'Lemons'},p:200,b:'-',s:'fruits',e:'🍋'},{id:'f6',n:{ar:'فراولة',fr:'Fraises',en:'Strawberries'},p:500,b:'-',s:'fruits',e:'🍓'},{id:'f7',n:{ar:'عنب',fr:'Raisin',en:'Grapes'},p:350,b:'-',s:'fruits',e:'🍇'},{id:'f8',n:{ar:'بطيخ',fr:'Pastèque',en:'Watermelon'},p:60,b:'-',s:'fruits',e:'🍉'},{id:'f9',n:{ar:'شمام',fr:'Cantaloup',en:'Cantaloupe'},p:200,b:'-',s:'fruits',e:'🍈'},{id:'f10',n:{ar:'كمثرى',fr:'Poire',en:'Pear'},p:350,b:'-',s:'fruits',e:'🍐'},{id:'f11',n:{ar:'كيوي',fr:'Kiwi',en:'Kiwi'},p:500,b:'-',s:'fruits',e:'🥝'},{id:'f12',n:{ar:'أناناس',fr:'Ananas',en:'Pineapple'},p:400,b:'-',s:'fruits',e:'🍍'},{id:'f13',n:{ar:'مانجو',fr:'Mangue',en:'Mango'},p:500,b:'-',s:'fruits',e:'🥭'},{id:'f14',n:{ar:'رمان',fr:'Grenade',en:'Pomegranate'},p:400,b:'-',s:'fruits',e:'🍎'},{id:'f15',n:{ar:'ليمون أخضر',fr:'Lime',en:'Lime'},p:300,b:'-',s:'fruits',e:'🍋'},
+{id:'f16',n:{ar:'جزر',fr:'Carottes',en:'Carrots'},p:150,b:'-',s:'vegetables',e:'🥕'},{id:'f17',n:{ar:'بطاطا',fr:'Pommes de Terre',en:'Potatoes'},p:80,b:'-',s:'vegetables',e:'🥔'},{id:'f18',n:{ar:'طماطم',fr:'Tomates',en:'Tomatoes'},p:100,b:'-',s:'vegetables',e:'🍅'},{id:'f19',n:{ar:'خيار',fr:'Concombre',en:'Cucumber'},p:80,b:'-',s:'vegetables',e:'🥒'},{id:'f20',n:{ar:'فلفل أخضر',fr:'Poivron Vert',en:'Green Pepper'},p:180,b:'-',s:'vegetables',e:'🫑'},{id:'f21',n:{ar:'بصل',fr:'Oignons',en:'Onions'},p:100,b:'-',s:'vegetables',e:'🧅'},{id:'f22',n:{ar:'ثوم',fr:'Ail',en:'Garlic'},p:500,b:'-',s:'vegetables',e:'🧄'},{id:'f23',n:{ar:'باذنجان',fr:'Aubergine',en:'Eggplant'},p:150,b:'-',s:'vegetables',e:'🍆'},{id:'f24',n:{ar:'كوسة',fr:'Courgette',en:'Zucchini'},p:120,b:'-',s:'vegetables',e:'🥒'},{id:'f25',n:{ar:'خس',fr:'Laitue',en:'Lettuce'},p:150,b:'-',s:'vegetables',e:'🥬'},{id:'f26',n:{ar:'سبانخ',fr:'Épinards',en:'Spinach'},p:120,b:'-',s:'vegetables',e:'🥬'},{id:'f27',n:{ar:'بروكلي',fr:'Brocoli',en:'Broccoli'},p:350,b:'-',s:'vegetables',e:'🥦'},{id:'f28',n:{ar:'فلفل أحمر',fr:'Poivron Rouge',en:'Red Pepper'},p:250,b:'-',s:'vegetables',e:'🌶️'},{id:'f29',n:{ar:'بقدونس',fr:'Persil',en:'Parsley'},p:100,b:'-',s:'herbs',e:'🌿'},{id:'f30',n:{ar:'كزبرة',fr:'Coriandre',en:'Coriander'},p:100,b:'-',s:'herbs',e:'🌿'},{id:'f31',n:{ar:'فاصوليا خضراء',fr:'Haricots Verts',en:'Green Beans'},p:250,b:'-',s:'vegetables',e:'🫛'},{id:'f32',n:{ar:'ملفوف',fr:'Chou',en:'Cabbage'},p:120,b:'-',s:'vegetables',e:'🥬'},{id:'f33',n:{ar:'زنجبيل',fr:'Gingembre',en:'Ginger'},p:600,b:'-',s:'herbs',e:'🫚'},{id:'f34',n:{ar:'زيتون أخضر',fr:'Olives Vertes',en:'Green Olives'},p:400,b:'-',s:'vegetables',e:'🫒'},{id:'f35',n:{ar:'زيتون أسود',fr:'Olives Noires',en:'Black Olives'},p:350,b:'-',s:'vegetables',e:'🫒'},{id:'f36',n:{ar:'فطر',fr:'Champignons',en:'Mushrooms'},p:500,b:'-',s:'vegetables',e:'🍄'},{id:'f37',n:{ar:'أفوكادو',fr:'Avocat',en:'Avocado'},p:600,b:'-',s:'vegetables',e:'🥑'},{id:'f38',n:{ar:'فلفل حار',fr:'Piment',en:'Chili'},p:300,b:'-',s:'vegetables',e:'🌶️'},{id:'f39',n:{ar:'ذرة',fr:'Maïs',en:'Corn'},p:150,b:'-',s:'vegetables',e:'🌽'},{id:'f40',n:{ar:'بامية',fr:'Gombo',en:'Okra'},p:350,b:'-',s:'vegetables',e:'🫛'},{id:'f41',n:{ar:'كرفس',fr:'Céleri',en:'Celery'},p:180,b:'-',s:'herbs',e:'🌿'},{id:'f42',n:{ar:'بصل أخضر',fr:'Oignon Vert',en:'Green Onion'},p:150,b:'-',s:'herbs',e:'🌿'},{id:'f43',n:{ar:'قرع',fr:'Potiron',en:'Pumpkin'},p:100,b:'-',s:'vegetables',e:'🎃'}
+],baby:[
+{id:'b1',n:{ar:'حفاضات مقاس 1',fr:'Pampers T1',en:'Pampers Size 1'},p:1200,b:'Pampers',s:'infant',e:'👶'},{id:'b2',n:{ar:'حفاضات مقاس 2',fr:'Pampers T2',en:'Pampers Size 2'},p:1300,b:'Pampers',s:'infant',e:'👶'},{id:'b3',n:{ar:'حفاضات مقاس 3',fr:'Pampers T3',en:'Pampers Size 3'},p:1400,b:'Pampers',s:'infant',e:'👶'},{id:'b4',n:{ar:'حفاضات مقاس 4',fr:'Pampers T4',en:'Pampers Size 4'},p:1500,b:'Pampers',s:'infant',e:'👶'},{id:'b5',n:{ar:'مناديل مبللة',fr:'Lingettes',en:'Baby Wipes'},p:350,b:'Pampers',s:'infant',e:'🧻'},{id:'b6',n:{ar:'حليب نيدو أطفال',fr:'Nido Bébé',en:'Nido Baby'},p:700,b:'Nido',s:'infant',e:'🍼'},{id:'b7',n:{ar:'حليب نان أطفال',fr:'Nan Bébé',en:'Nan Baby'},p:1200,b:'Nestle',s:'infant',e:'🍼'},{id:'b8',n:{ar:'سيريلاك قمح',fr:'Cerelac Blé',en:'Cerelac Wheat'},p:500,b:'Cerelac',s:'infant',e:'🥣'},{id:'b9',n:{ar:'سيريلاك أرز',fr:'Cerelac Riz',en:'Cerelac Rice'},p:450,b:'Cerelac',s:'infant',e:'🥣'},{id:'b10',n:{ar:'سيريلاك موز',fr:'Cerelac Banane',en:'Cerelac Banana'},p:500,b:'Cerelac',s:'infant',e:'🥣'},{id:'b11',n:{ar:'ببرونة رضاعة',fr:'Biberon',en:'Baby Bottle'},p:400,b:'-',s:'infant',e:'🍼'},{id:'b12',n:{ar:'كريم حفاضات',fr:'Crème Couche',en:'Diaper Cream'},p:500,b:'Penaten',s:'infant',e:'🧴'},{id:'b13',n:{ar:'شامبو أطفال',fr:'Shampooing Bébé',en:'Baby Shampoo'},p:450,b:'J&J',s:'infant',e:'🧴'},{id:'b14',n:{ar:'صابون أطفال',fr:'Savon Bébé',en:'Baby Soap'},p:250,b:'J&J',s:'infant',e:'🧼'},{id:'b15',n:{ar:'عربة أطفال',fr:'Poussette',en:'Stroller'},p:25000,b:'-',s:'infant',e:'🧒'},{id:'b16',n:{ar:'كرسي طعام',fr:'Chaise Haute',en:'High Chair'},p:8000,b:'-',s:'infant',e:'🪑'},
+{id:'p1',n:{ar:'فيتامينات الحمل',fr:'Vitamines',en:'Pregnancy Vitamins'},p:3500,b:'Elevit',s:'pregnant',e:'💊'},{id:'p2',n:{ar:'حمض الفوليك',fr:'Acide Folique',en:'Folic Acid'},p:800,b:'-',s:'pregnant',e:'💊'},{id:'p3',n:{ar:'كريم ترطيب البطن',fr:'Crème Ventre',en:'Belly Cream'},p:2500,b:'Mustela',s:'pregnant',e:'🧴'},{id:'p4',n:{ar:'زيت مضاد للتشققات',fr:'Anti-Vergetures',en:'Anti-Stretch Oil'},p:2800,b:'Bio Oil',s:'pregnant',e:'🧴'},{id:'p5',n:{ar:'حزام دعم الحمل',fr:'Ceinture',en:'Pregnancy Belt'},p:1500,b:'-',s:'pregnant',e:'🎗️'},{id:'p6',n:{ar:'وسادة حمل',fr:'Coussin',en:'Pregnancy Pillow'},p:3000,b:'-',s:'pregnant',e:'🛏️'},{id:'p7',n:{ar:'اختبار حمل',fr:'Test Grossesse',en:'Pregnancy Test'},p:800,b:'Clearblue',s:'pregnant',e:'🧪'},{id:'p8',n:{ar:'حليب حوامل',fr:'Lait Grossesse',en:'Pregnant Milk'},p:1500,b:'Nestle',s:'pregnant',e:'🥛'},{id:'p9',n:{ar:'مكملات الحديد',fr:'Fer',en:'Iron Supplements'},p:600,b:'-',s:'pregnant',e:'💊'},{id:'p10',n:{ar:'حقيبة مستشفى',fr:'Valise Maternité',en:'Hospital Bag'},p:2000,b:'-',s:'pregnant',e:'👜'}
+]};
+
+/* ═══ AI RECIPES ═══ */
+var RECIPES={
+ar:[
+{t:'🥘 شخشوخة جزائرية',time:'45 دقيقة',ing:'سميد، طماطم، بصل، ثوم، فلفل، زيت، ملح',steps:['اعجني السميد مع الماء والملح','افردي العجين وقطعيه دوائر','حمري البصل والثوم بزيت الزيتون','أضيفي الطماطم والفلفل','ضعي العجين فوق المرقة','غطي وانضجي 20 دقيقة','قدميه ساخناً']},
+{t:'🍲 شوربة عدس',time:'40 دقيقة',ing:'عدس أحمر، بصل، ثوم، طماطم، كمون، كركم',steps:['انقعي العدس 30 دقيقة','حمري البصل والثوم','أضيفي الطماطم والبهارات','أضيفي العدس والماء','انضجي 25 دقيقة','اخفقيها وقدميها بالليمون']},
+{t:'🍗 دجاج محمر بالتوابل',time:'60 دقيقة',ing:'دجاج، بصل، ثوم، فلفل أحمر، كركم، كمون',steps:['تبلي الدجاج بالبهارات','حمري البصل والثوم','أضيفي الدجاج وقلبي','أضيفي الماء','غطي وانضجي 40 دقيقة','قدميه مع الأرز']},
+{t:'🥗 سلطة مشوية',time:'20 دقيقة',ing:'فلفل، طماطم، بصل، ثوم، زيت زيتون، ليمون',steps:['اشوي الفلفل والبصل على النار','قشري الطماطم وقطعيها','قشري الفلفل المشوي','اخلطي الكل في صحن','أضيفي الزيت والليمون','قدميها مع خبز طابونة']},
+{t:'🥘 كسكس جزائري',time:'90 دقيقة',ing:'كسكس، لحم، حمص، كوسا، جزر، بطاطا، بصل، طماطم',steps:['انقعي الحمص ليلة كاملة','حضري المرقة باللحم والبصل','أضيفي الحمص والخضروات','حضري الكسكس بالبخار 3 مرات','رشي الماء البارد وافركيه','قدميه في طبق كبير مع المرقة']},
+{t:'🧁 مقروشة',time:'30 دقيقة',ing:'سميد، سكر، زبدة، ماء الزهر، خميرة',steps:['اخلطي السميد والسكر والزبدة','أضيفي ماء الزهر','شكلي كريات صغيرة','انضجيها في الفرن 15 دقيقة','انقعيها بالقطر وهي ساخنة','زينيها باللوز']},
+{t:'🍕 فطير جزائري',time:'40 دقيقة',ing:'فرينة، حشوة جبن أو لحم، بيض، زيت',steps:['اعجني الفرينة مع الزيت والماء','افردي العجين رقيقاً','ضعي الحشوة','اطوي العجين واحمليه','انضجي في الفرن 20 دقيقة','قدميه ساخناً']}
+],
+fr:[
+{t:'🥘 Chakhchouha Algérienne',time:'45 min',ing:'Semoule, tomates, oignons, ail, poivrons',steps:['Pâte semoule + eau + sel','Étalez et découpez','Faites revenir oignons','Ajoutez tomates et poivrons','Déposez pâte sur ragoût','Cuire 20 min feu doux']},
+{t:'🍲 Soupe de Lentilles',time:'40 min',ing:'Lentilles, oignon, ail, tomate, cumin',steps:['Trempez lentilles 30 min','Faites revenir oignon','Ajoutez tomates + épices','Ajoutez lentilles + eau','Mijotez 25 min','Mixez et servez']},
+{t:'🍗 Poulet Rôti Épicé',time:'60 min',ing:'Poulet, oignon, ail, poivron, curcuma, cumin',steps:['Assaisonnez le poulet','Faites revenir oignon','Ajoutez poulet','Ajoutez eau','Couvrez 40 min','Servez avec riz']},
+{t:'🥗 Salade Grillée',time:'20 min',ing:'Poivrons, tomates, oignon, ail, huile olive',steps:['Grillez poivrons et oignons','Coupez tomates','Pelez poivrons','Mélangez dans saladier','Ajoutez huile + citron','Servez avec pain']}
+],
+en:[
+{t:'🥘 Algerian Chakhchouha',time:'45 min',ing:'Semolina, tomatoes, onion, garlic, peppers',steps:['Make semolina dough','Roll and cut circles','Sauté onion and garlic','Add tomatoes and peppers','Place dough on sauce','Cook 20 min low heat']},
+{t:'🍲 Lentil Soup',time:'40 min',ing:'Red lentils, onion, garlic, tomato, cumin',steps:['Soak lentils 30 min','Sauté onion','Add tomatoes + spices','Add lentils + water','Simmer 25 min','Blend and serve']},
+{t:'🍗 Spicy Roast Chicken',time:'60 min',ing:'Chicken, onion, garlic, pepper, turmeric, cumin',steps:['Season the chicken','Sauté onion and garlic','Add chicken pieces','Add water','Cover and cook 40 min','Serve with rice']},
+{t:'🥗 Grilled Salad',time:'20 min',ing:'Peppers, tomatoes, onion, garlic, olive oil',steps:['Grill peppers and onion','Dice tomatoes','Peel grilled peppers','Mix in bowl','Add oil and lemon','Serve with bread']}
+]};
+
+/* ═══ STATE ═══ */
+var lang='ar',curStore='grocery',curSub='all',cart=JSON.parse(localStorage.getItem('cs_cart')||'[]'),coupon=null,loginMode=true,camStream=null,aiMode='cam';
+var COUPONS={WELCOME10:10,SAVE15:15,RAMADAN20:20,CHAHINEZ25:25};
+var STORES=[{key:'grocery',icon:'fas fa-shopping-basket',nav:'navGrocery'},{key:'fresh',icon:'fas fa-leaf',nav:'navFresh'},{key:'baby',icon:'fas fa-baby',nav:'navBaby'}];
+var SUBS={grocery:[{key:'all',l:'subAll'},{key:'drinks',l:'subDrinks'},{key:'dairy',l:'subDairy'},{key:'staples',l:'subStaples'},{key:'oils',l:'subOils'},{key:'condiments',l:'subCondiments'},{key:'sweets',l:'subSweets'}],fresh:[{key:'all',l:'subAll'},{key:'fruits',l:'subFruits'},{key:'vegetables',l:'subVegetables'},{key:'herbs',l:'subHerbs'}],baby:[{key:'all',l:'subAll'},{key:'infant',l:'subInfant'},{key:'pregnant',l:'subPregnant'}]};
+
+function t(k){return(T[lang]&&T[lang][k])||T.ar[k]||k}
+function pn(p){return(p.n[lang]||p.n.ar)}
+function allP(){return[].concat(PRODUCTS.grocery,PRODUCTS.fresh,PRODUCTS.baby)}
+function findP(id){for(var i=0;i<allP().length;i++){if(allP()[i].id===id)return allP()[i]}return null}
+function SN(){return{drinks:t('subDrinks'),dairy:t('subDairy'),staples:t('subStaples'),oils:t('subOils'),condiments:t('subCondiments'),sweets:t('subSweets'),fruits:t('subFruits'),vegetables:t('subVegetables'),herbs:t('subHerbs'),infant:t('subInfant'),pregnant:t('subPregnant')}}
+
+/* ═══ RENDER ═══ */
+function applyLang(){
+  document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+  document.getElementById('langLabel').textContent=t('langLabel');
+  renderNav();renderMobileNav();renderStoreTabs();renderSubTabs();
+  document.getElementById('heroTitle').innerHTML=t('heroTitle');document.getElementById('heroSub').textContent=t('heroSub');
+  document.getElementById('searchInput').placeholder=t('search');
+  document.getElementById('cartTitle').innerHTML=t('cartT');
+  document.getElementById('couponInput').placeholder=t('couponP');document.getElementById('couponBtn').textContent=t('couponB');
+  document.getElementById('checkoutBtn').innerHTML='<i class="fas fa-truck"></i> '+t('checkout');
+  document.getElementById('authTitle').innerHTML=t('authT');document.getElementById('gBtn').textContent=t('gBtn');
+  document.getElementById('aDiv').textContent=t('or');document.getElementById('eL').textContent=t('email');
+  document.getElementById('pL').textContent=t('pass');document.getElementById('nL').textContent=t('name');
+  document.getElementById('aSb').textContent=loginMode?t('login'):t('signup');
+  document.getElementById('aTg').textContent=loginMode?t('noAcc'):t('hasAcc');
+  document.getElementById('aTl').textContent=loginMode?t('createAcc'):t('login');
+  document.getElementById('oT').textContent=t('okTitle');document.getElementById('oM').textContent=t('okMsg');document.getElementById('oB').textContent=t('okBtn');
+  document.getElementById('cfTitle').textContent=t('cfTitle');
+  document.getElementById('fnL').textContent=t('fnL');document.getElementById('lnL').textContent=t('lnL');document.getElementById('phL').textContent=t('phL');
+  document.getElementById('coL').textContent=t('coL');document.getElementById('adL').textContent=t('adL');
+  document.getElementById('fs1l').textContent=t('fs1l');document.getElementById('fs2l').textContent=t('fs2l');
+  document.getElementById('sBtn').innerHTML='<i class="fas fa-check-circle"></i> '+t('sBtn');
+  document.getElementById('wilayaName').textContent=lang==='ar'?'الطارف':'El Tarf';
+  document.getElementById('aiHowTo').innerHTML=t('howTo');document.getElementById('aiT').textContent='AI Chef';
+  document.getElementById('tabCamT').textContent=t('camTab');document.getElementById('tabTxtT').textContent=t('txtTab');
+  document.getElementById('camTxt').textContent=t('camOpen');document.getElementById('snapT').textContent=t('snapBtn');
+  document.getElementById('cancelT').textContent=t('cancelBtn');document.getElementById('recipeT').textContent=t('recipeBtn');
+  document.getElementById('aiInput').placeholder=t('inputP');
+  document.getElementById('fDesc').textContent=t('fDesc');document.getElementById('fLinks').textContent=t('fLinks');
+  document.getElementById('fl1').textContent=t('fl1');document.getElementById('fl2').textContent=t('fl2');document.getElementById('fl3').textContent=t('fl3');
+  document.getElementById('fServ').textContent=t('fServ');document.getElementById('fCont').textContent=t('fCont');
+  document.getElementById('fs1').textContent=t('fs1');document.getElementById('fs2').textContent=t('fs2');document.getElementById('fs3').textContent=t('fs3');document.getElementById('fs4').textContent=t('fs4');
+  document.getElementById('fLoc').textContent=t('fLoc');document.getElementById('fCopy').textContent=t('fCopy');
+  renderProducts();renderCart();
+}
+
+function renderNav(){document.getElementById('navCenter').innerHTML=STORES.map(function(s){return'<button class="'+(s.key===curStore?'active':'')+'" onclick="switchStore(\''+s.key+'\')">'+t(s.nav)+'</button>'}).join('')}
+function renderMobileNav(){document.getElementById('mobileNav').innerHTML=STORES.map(function(s){return'<button onclick="switchStore(\''+s.key+'\');closeMN()">'+t(s.nav)+'</button>'}).join('')}
+function renderStoreTabs(){document.getElementById('storeTabs').innerHTML=STORES.map(function(s){return'<button class="store-tab '+(s.key===curStore?'active':'')+'" onclick="switchStore(\''+s.key+'\')"><i class="'+s.icon+'"></i> '+t(s.nav)+'</button>'}).join('')}
+function renderSubTabs(){var c=document.getElementById('subTabs'),subs=SUBS[curStore];if(!subs){c.innerHTML='';return}c.innerHTML=subs.map(function(s){return'<button class="sub-tab '+(s.key===curSub?'active':'')+'" onclick="switchSub(\''+s.key+'\')">'+t(s.l)+'</button>'}).join('')}
+
+function getFiltered(){var p=PRODUCTS[curStore]||[];if(curSub!=='all')p=p.filter(function(x){return x.s===curSub});var q=document.getElementById('searchInput').value.trim().toLowerCase();if(q)p=p.filter(function(x){return pn(x).toLowerCase().indexOf(q)>-1||x.b.toLowerCase().indexOf(q)>-1});return p}
+
+function renderProducts(){
+  var prods=getFiltered(),c=document.getElementById('productsContainer');
+  if(!prods.length){c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--t2)"><i class="fas fa-search" style="font-size:1.8rem;display:block;margin-bottom:.4rem"></i>'+t('cartE')+'</div>';return}
+  var grouped={};prods.forEach(function(p){if(!grouped[p.s])grouped[p.s]=[];grouped[p.s].push(p)});
+  var sn=SN(),html='';var subs=Object.keys(grouped);
+  for(var i=0;i<subs.length;i++){var sub=subs[i],items=grouped[sub];
+    if(curSub==='all')html+='<h3 class="section-title"><i class="fas fa-tag"></i> '+(sn[sub]||sub)+'</h3>';
+    html+='<div class="products-grid">';
+    items.forEach(function(p){html+='<div class="product-card"><div class="product-emoji">'+p.e+'</div><div class="product-info">'+(p.b!=='-'?'<div class="product-brand">'+t('brand')+': '+p.b+'</div>':'')+'<div class="product-name">'+pn(p)+'</div><div class="product-price">'+p.p+' '+t('cur')+'</div><button class="add-cart-btn" onclick="addToCart(\''+p.id+'\')"><i class="fas fa-cart-plus"></i> '+t('addToCart')+'</button></div></div>'});
+    html+='</div>';}
+  c.innerHTML=html;
+}
+
+function switchStore(s){curStore=s;curSub='all';renderNav();renderStoreTabs();renderSubTabs();renderProducts()}
+function switchSub(s){curSub=s;renderSubTabs();renderProducts()}
+function toggleMobileNav(){document.getElementById('mobileNav').classList.toggle('open')}
+function closeMN(){document.getElementById('mobileNav').classList.remove('open')}
+function toggleLang(){document.getElementById('langDrop').classList.toggle('show')}
+function setLang(l){lang=l;document.getElementById('langDrop').classList.remove('show');applyLang();localStorage.setItem('cs_lang',l)}
+document.addEventListener('click',function(e){if(!e.target.closest('.lang-select'))document.getElementById('langDrop').classList.remove('show')});
+
+/* ═══ CART ═══ */
+function addToCart(id){var ex=null;for(var i=0;i<cart.length;i++){if(cart[i].id===id){ex=cart[i];break}}if(ex)ex.qty++;else cart.push({id:id,qty:1});saveCart();renderCart();showToast(t('added'))}
+function removeFromCart(id){cart=cart.filter(function(c){return c.id!==id});saveCart();renderCart()}
+function changeQty(id,d){var item=null;for(var i=0;i<cart.length;i++){if(cart[i].id===id){item=cart[i];break}}if(!item)return;item.qty+=d;if(item.qty<=0){removeFromCart(id);return}saveCart();renderCart()}
+function saveCart(){localStorage.setItem('cs_cart',JSON.stringify(cart));document.getElementById('cartCount').textContent=cart.reduce(function(s,c){return s+c.qty},0)}
+function getSubtotal(){return cart.reduce(function(s,c){var p=findP(c.id);return s+(p?p.p*c.qty:0)},0)}
+function getDiscRate(sub){var cp=coupon?COUPONS[coupon]||0:0;var tier=0;if(sub>=50000)tier=20;else if(sub>=20000)tier=15;else if(sub>=10000)tier=10;else if(sub>=5000)tier=5;return Math.max(cp,tier)}
+
+function renderCart(){
+  var el=document.getElementById('cartItems'),sum=document.getElementById('cartSummary'),foot=document.getElementById('cartFooter');
+  document.getElementById('cartCount').textContent=cart.reduce(function(s,c){return s+c.qty},0);
+  if(!cart.length){el.innerHTML='<div class="cart-empty"><i class="fas fa-shopping-cart"></i><p>'+t('cartE')+'</p></div>';foot.style.display='none';return}
+  foot.style.display='block';
+  el.innerHTML=cart.map(function(c){var p=findP(c.id);if(!p)return'';return'<div class="cart-item"><div class="cart-item-emoji">'+p.e+'</div><div class="cart-item-info"><div class="cart-item-name">'+pn(p)+'</div><div class="cart-item-price">'+p.p+' '+t('cur')+'</div><div class="cart-item-qty"><button class="qty-btn" onclick="changeQty(\''+c.id+'\','+(-1)+')">-</button><span>'+c.qty+'</span><button class="qty-btn" onclick="changeQty(\''+c.id+'\',1)">+</button></div></div><button class="cart-item-remove" onclick="removeFromCart(\''+c.id+'\')"><i class="fas fa-trash"></i></button></div>'}).join('');
+  var sub=getSubtotal(),dr=getDiscRate(sub),disc=sub*dr/100,total=sub-disc;
+  var sh='<div class="cart-summary-row"><span>'+t('sub')+'</span><span>'+sub+' '+t('cur')+'</span></div>';
+  if(dr>0)sh+='<div class="cart-summary-row discount"><span>'+t('disc')+' ('+dr+'%)</span><span>-'+disc+' '+t('cur')+'</span></div>';
+  sh+='<div class="cart-summary-row total"><span>'+t('total')+'</span><span>'+total+' '+t('cur')+'</span></div>';
+  sum.innerHTML=sh;
+}
+
+function applyCoupon(){var code=document.getElementById('couponInput').value.trim().toUpperCase();if(COUPONS[code]){coupon=code;renderCart();showToast(t('couponOk'))}else showToast(t('couponBad'),'error')}
+function toggleCart(){document.getElementById('cartOverlay').classList.toggle('open');document.getElementById('cartDrawer').classList.toggle('open')}
+
+/* ═══ CHECKOUT ═══ */
+function populateCommunes(){var sel=document.getElementById('cCO');sel.innerHTML='<option value="">-- '+t('selC')+' --</option>';COMMUNES.forEach(function(c){sel.innerHTML+='<option value="'+c+'">'+c+'</option>'})}
+
+function openCheckout(){
+  if(!cart.length)return;
+  var sub=getSubtotal(),dr=getDiscRate(sub),disc=sub*dr/100,total=sub-disc;
+  var bh='<div class="os-row"><span>'+t('items')+'</span><span>'+cart.reduce(function(s,c){return s+c.qty},0)+'</span></div>';
+  bh+='<div class="os-row"><span>'+t('sub')+'</span><span>'+sub+' '+t('cur')+'</span></div>';
+  if(dr>0)bh+='<div class="os-row" style="color:var(--green)"><span>'+t('disc')+' ('+dr+'%)</span><span>-'+disc+' '+t('cur')+'</span></div>';
+  bh+='<div class="os-row os-total"><span>'+t('total')+'</span><span>'+total+' '+t('cur')+'</span></div>';
+  document.getElementById('osBox').innerHTML=bh;
+  populateCommunes();
+  document.getElementById('cFN').value='';document.getElementById('cLN').value='';document.getElementById('cPH').value='';document.getElementById('cAD').value='';
+  document.getElementById('cErr').textContent='';
+  toggleCart();
+  document.getElementById('checkoutModal').classList.add('open');
+}
+
+async function submitOrder(){
+  var fn=document.getElementById('cFN').value.trim(),ln=document.getElementById('cLN').value.trim(),ph=document.getElementById('cPH').value.trim(),co=document.getElementById('cCO').value,ad=document.getElementById('cAD').value.trim();
+  var err=document.getElementById('cErr');err.textContent='';
+  if(!fn||!ln||!ph||!co||!ad){err.textContent=t('fillAll');return}
+  var sub=getSubtotal(),dr=getDiscRate(sub),disc=sub*dr/100,total=sub-disc;
+  var items=cart.map(function(c){var p=findP(c.id);return{id:c.id,name:pn(p),price:p.p,qty:c.qty,brand:p.b}});
+  var orderData={customer:{firstName:fn,lastName:ln,phone:ph,wilaya:'الطارف',commune:co,address:ad},items:items,pricing:{subtotal:sub,discountRate:dr,discount:disc,total:total},coupon:coupon||null,status:'pending',createdAt:new Date().toISOString()};
+  var btn=document.getElementById('sBtn');
+  btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> '+t('sending');btn.disabled=true;
+  try{
+    var docRef=await fbDB.collection('orders').add(orderData);
+    closeModal('checkoutModal');
+    var orderId=docRef.id.slice(-6).toUpperCase();
+    document.getElementById('oM').textContent=cart.reduce(function(s,c){return s+c.qty},0)+' '+t('items')+' — '+total+' '+t('cur');
+    document.getElementById('oN').textContent=t('okNum')+': #'+orderId;
+    document.getElementById('orderModal').classList.add('open');
+    cart=[];coupon=null;document.getElementById('couponInput').value='';saveCart();renderCart();
+  }catch(e){
+    if(e.code==='permission-denied')err.textContent='Permission denied — تحقق من إعدادات Firestore Rules';
+    else err.textContent=e.message;
+  }
+  btn.innerHTML='<i class="fas fa-check-circle"></i> '+t('sBtn');btn.disabled=false;
+}
+
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+
+/* ═══ AUTH ═══ */
+function openAuthModal(){document.getElementById('authModal').classList.add('open')}
+function toggleAuthMode(){loginMode=!loginMode;document.getElementById('nG').style.display=loginMode?'none':'block';document.getElementById('aSb').textContent=loginMode?t('login'):t('signup');document.getElementById('aTg').textContent=loginMode?t('noAcc'):t('hasAcc');document.getElementById('aTl').textContent=loginMode?t('createAcc'):t('login');document.getElementById('aErr').textContent=''}
+async function googleSignIn(){try{await fbAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());closeModal('authModal');showToast('✅')}catch(e){document.getElementById('aErr').textContent=e.message}}
+async function emailAuth(){var email=document.getElementById('aE').value.trim(),pass=document.getElementById('aP').value,err=document.getElementById('aErr');err.textContent='';if(!email||!pass){err.textContent='Required';return}try{if(loginMode)await fbAuth.signInWithEmailAndPassword(email,pass);else await fbAuth.createUserWithEmailAndPassword(email,pass);closeModal('authModal');showToast('✅')}catch(e){err.textContent=e.message}}
+fbAuth.onAuthStateChanged(function(user){
+  var area=document.getElementById('authArea');
+  if(user){var n=user.displayName||user.email?user.email.split('@')[0]:'User';area.innerHTML='<div style="display:flex;align-items:center;gap:.3rem"><i class="fas fa-user-circle" style="font-size:1rem;color:var(--gold)"></i><span style="font-size:.68rem">'+n+'</span><button class="auth-btn" onclick="fbAuth.signOut()"><i class="fas fa-sign-out-alt"></i></button></div>'}
+  else area.innerHTML='<button class="auth-btn" onclick="openAuthModal()"><i class="fas fa-user"></i></button>';
+});
+
+/* ═══ AI CHEF ═══ */
+function toggleAiChef(){document.getElementById('aiPanel').classList.toggle('open')}
+
+function setAiMode(mode){
+  aiMode=mode;
+  document.getElementById('camMode').style.display=mode==='cam'?'block':'none';
+  document.getElementById('txtMode').style.display=mode==='txt'?'block':'none';
+  document.getElementById('tabCam').className='sub-tab'+(mode==='cam'?' active':'');
+  document.getElementById('tabTxt').className='sub-tab'+(mode==='txt'?' active':'');
+  document.getElementById('aiRes').style.display='none';
+  if(mode!=='cam')stopCam();
+}
+
+async function startCam(){
+  try{
+    var v=document.getElementById('camVid');
+    camStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});
+    v.srcObject=camStream;v.style.display='block';
+    document.getElementById('camArea').style.display='none';
+    document.getElementById('camCtrl').style.display='block';
+    document.getElementById('capImg').style.display='none';
+  }catch(e){
+    showToast(t('noCam'),'error');
+    setTimeout(function(){setAiMode('txt')},800);
+  }
+}
+
+function stopCam(){
+  if(camStream){camStream.getTracks().forEach(function(t){t.stop()});camStream=null}
+  document.getElementById('camVid').style.display='none';
+  document.getElementById('camCtrl').style.display='none';
+  document.getElementById('camArea').style.display='block';
+}
+
+function snapPhoto(){
+  var v=document.getElementById('camVid'),c=document.getElementById('pCanvas');
+  c.width=v.videoWidth;c.height=v.videoHeight;
+  c.getContext('2d').drawImage(v,0,0);
+  var img=document.getElementById('capImg');
+  img.src=c.toDataURL('image/jpeg');img.style.display='block';
+  stopCam();
+}
+
+function getRecipe(){
+  var res=document.getElementById('aiRes');res.style.display='block';
+  res.innerHTML='<p style="text-align:center"><i class="fas fa-spinner fa-spin"></i> '+t('analyzing')+'</p>';
+
+  if(aiMode==='cam'){
+    var c=document.getElementById('pCanvas');
+    if(c.width===0||c.height===0){res.innerHTML='<p style="color:var(--gold);text-align:center">'+t('snapFirst')+'</p>';return}
+  }else{
+    var txt=document.getElementById('aiInput').value.trim();
+    if(!txt){res.innerHTML='<p style="color:var(--gold);text-align:center">'+t('typeFirst')+'</p>';return}
+  }
+
+  var recipes=RECIPES[lang]||RECIPES.ar;
+  var r=recipes[Math.floor(Math.random()*recipes.length)];
+
+  setTimeout(function(){
+    var html='<h4>👨‍🍳 '+r.t+'</h4>';
+    html+='<div style="font-size:.68rem;color:var(--t2);margin-bottom:.3rem"><i class="fas fa-clock"></i> '+r.time+'</div>';
+    html+='<div style="margin-bottom:.4rem"><strong style="color:var(--gold);font-size:.72rem">'+(lang==='ar'?'المكونات:':lang==='fr'?'Ingrédients:':'Ingredients:')+'</strong><br><span style="font-size:.72rem">'+r.ing+'</span></div>';
+    html+='<strong style="color:var(--gold);font-size:.72rem">'+(lang==='ar'?'طريقة التحضير:':lang==='fr'?'Préparation:':'Steps:')+'</strong>';
+    html+='<ol style="margin:.3rem 0;padding-right:1.2rem;line-height:2">';
+    r.steps.forEach(function(s){html+='<li>'+s+'</li>'});
+    html+='</ol>';
+    html+='<p style="font-size:.6rem;color:var(--t2);margin-top:.5rem;text-align:center;border-top:1px solid var(--gb);padding-top:.4rem">💡 AI Chef — '+lang+' — Chahinez Store</p>';
+    res.innerHTML=html;
+  },1500);
+}
+
+/* ═══ TOAST ═══ */
+function showToast(msg,type){var el=document.getElementById('toast');el.textContent=msg;el.className='toast show'+(type==='error'?' error':'');setTimeout(function(){el.classList.remove('show')},2200)}
+
+/* ═══ INIT ═══ */
+var sl=localStorage.getItem('cs_lang');if(sl&&T[sl])lang=sl;
+applyLang();
+</script>
+</body>
+</html>
+
